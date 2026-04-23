@@ -1,6 +1,8 @@
-import 'package:flutter/material.dart';
+// lib/main.dart
 
-import 'views/accueil.dart';
+import 'package:bibliotheca_app/views/acceuil.dart';
+import 'package:flutter/material.dart';
+import 'views/home_page.dart' hide HomePage;
 
 void main() {
   runApp(const BibliothecaApp());
@@ -13,10 +15,14 @@ class BibliothecaApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Bibliotheca',
+      title: "Bibliotheca",
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal),
-        useMaterial3: true,
+        primarySwatch: Colors.blue,
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.blue,
+          foregroundColor: Colors.white,
+          centerTitle: true,
+        ),
       ),
       home: const HomePage(),
     );
