@@ -9,10 +9,8 @@ class Livre {
   String? description;
   int? nbPage;
   String? image;
-
   int? categorieId;
   int? auteurId;
-
   Categorie? categorie;
   Auteur? auteur;
 

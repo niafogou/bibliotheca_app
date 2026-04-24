@@ -34,7 +34,7 @@ abstract class LivreApiCtl {
         headers: ApiConst.header,
         body: jsonEncode(livre.toJson()),
       );
-      if (res.statusCode == 200) {
+      if (res.statusCode == 201) {
         var body = jsonDecode(res.body);
         return ApiData.success(data: Livre.fromJson(body));
       } else {

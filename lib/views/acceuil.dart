@@ -1,4 +1,3 @@
-import 'package:bibliotheca_app/views/liste%20des%20cat%C3%A9gories.dart';
 import 'package:bibliotheca_app/views/liste_des_categories.dart';
 import 'package:bibliotheca_app/views/liste_des_livres.dart';
 import 'package:bibliotheca_app/views/liste_des_auteurs.dart';
@@ -12,7 +11,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Bienvenue sur Bibliotheca App"),
+        title: const Text("Bienvenue sur Bibliotheca"),
         centerTitle: true,
         elevation: 2,
       ),
@@ -39,7 +38,7 @@ class HomePage extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (_) => const ListeCategorie()),
+                  MaterialPageRoute(builder: (_) => const ListeCategoriePage()),
                 );
               },
             ),

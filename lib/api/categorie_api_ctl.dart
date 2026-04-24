@@ -1,7 +1,5 @@
 import 'dart:convert';
 import 'package:bibliotheca_app/configuration/api_const.dart';
-import 'package:bibliotheca_app/configuration/api_const.dart';
-import 'package:bibliotheca_app/configuration/api_const.dart';
 import 'package:bibliotheca_app/models/category.dart';
 import 'package:bibliotheca_app/tools/api_data.dart';
 import 'package:http/http.dart' as http;
@@ -33,7 +31,7 @@ abstract class CategorieApiCtl {
         headers: ApiConst.header,
         body: jsonEncode(categorie.toJson()),
       );
-      if (res.statusCode == 200) {
+      if (res.statusCode == 201) {
         var body = jsonDecode(res.body);
         return ApiData.success(data: Categorie.fromJson(body));
       } else {

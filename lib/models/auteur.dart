@@ -1,14 +1,14 @@
 class Auteur {
   int? id;
   String? nom;
-  String? prenoms;
+  String? prenom;
   String? email;
-  Auteur({this.id, this.nom, this.prenoms, this.email});
+  Auteur({this.id, this.nom, this.prenom, this.email});
 
   Auteur.fromJson(Map<String, dynamic> json) {
     id = json["id"];
     nom = json["nom"];
-    prenoms = json["prenoms"];
+    prenom = json["prenom"];
     email = json["email"];
   }
 
@@ -20,7 +20,7 @@ class Auteur {
     Map<String, dynamic> map = {};
     map["id"] = id;
     map["nom"] = nom;
-    map["prenoms"] = prenoms;
+    map["prenom"] = prenom;
     map["email"] = email;
     return map;
   }

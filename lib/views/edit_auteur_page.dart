@@ -22,7 +22,7 @@ class _EditAuteurPageState extends State<EditAuteurPage> {
   void initState() {
     super.initState();
     _nomController = TextEditingController(text: widget.auteur.nom);
-    _prenomsController = TextEditingController(text: widget.auteur.prenoms);
+    _prenomsController = TextEditingController(text: widget.auteur.prenom);
     _emailController = TextEditingController(text: widget.auteur.email);
   }
 
@@ -50,10 +50,10 @@ class _EditAuteurPageState extends State<EditAuteurPage> {
               ),
               TextFormField(
                 controller: _prenomsController,
-                decoration: const InputDecoration(labelText: 'Prénoms'),
+                decoration: const InputDecoration(labelText: 'Prénom'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Veuillez entrer des prénoms';
+                    return 'Veuillez entrer un prénom';
                   }
                   return null;
                 },
@@ -75,7 +75,7 @@ class _EditAuteurPageState extends State<EditAuteurPage> {
                     var auteur = Auteur(
                       id: widget.auteur.id,
                       nom: _nomController.text,
-                      prenoms: _prenomsController.text,
+                      prenom: _prenomsController.text,
                       email: _emailController.text,
                     );
                     AuteurApiCtl.update(auteur).then((result) {

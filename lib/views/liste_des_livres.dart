@@ -1,5 +1,7 @@
 import 'package:bibliotheca_app/api/livre_api_ctl.dart';
 import 'package:bibliotheca_app/models/livre.dart';
+import 'package:bibliotheca_app/views/create_livre_page.dart';
+import 'package:bibliotheca_app/views/edit_livre_page.dart';
 import 'package:flutter/material.dart';
 
 class ListeLivrePage extends StatefulWidget {
@@ -28,6 +30,12 @@ class _ListeLivrePageState extends State<ListeLivrePage> {
     }
   }
 
+  void _reloadLivres() {
+    setState(() {
+      _livres = _fetchLivres();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,21 +44,25 @@ class _ListeLivrePageState extends State<ListeLivrePage> {
         actions: [
           IconButton(
             icon: const Icon(Icons.refresh),
-            onPressed: () {
-              setState(() {
-                _livres = _fetchLivres();
-              });
-            },
+            onPressed: _reloadLivres,
           ),
           IconButton(
             icon: const Icon(Icons.add),
             onPressed: () {
-              // Page ajout livre
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const CreateLivrePage(),
+                ),
+              ).then((value) {
+                if (value == true) {
+                  _reloadLivres();
+                }
+              });
             },
           ),
         ],
       ),
-
       body: FutureBuilder<List<Livre>>(
         future: _livres,
         builder: (context, snapshot) {
@@ -68,7 +80,7 @@ class _ListeLivrePageState extends State<ListeLivrePage> {
 
           if (!snapshot.hasData || snapshot.data!.isEmpty) {
             return const Center(
-              child: Text("Aucun livre trouvé"),
+              child: Text("Aucun livre trouve"),
             );
           }
 
@@ -86,9 +98,7 @@ class _ListeLivrePageState extends State<ListeLivrePage> {
                   leading: CircleAvatar(
                     child: Text("${livre.id}"),
                   ),
-
                   title: Text(livre.libelle ?? ""),
-
                   subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -96,11 +106,18 @@ class _ListeLivrePageState extends State<ListeLivrePage> {
                       Text("Pages : ${livre.nbPage ?? 0}"),
                     ],
                   ),
-
                   trailing: const Icon(Icons.arrow_forward_ios),
-
                   onTap: () {
-                    // Page modification livre
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => EditLivrePage(livre: livre),
+                      ),
+                    ).then((value) {
+                      if (value == true) {
+                        _reloadLivres();
+                      }
+                    });
                   },
                 ),
               );

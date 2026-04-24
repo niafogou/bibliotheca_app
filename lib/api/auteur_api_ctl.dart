@@ -31,7 +31,7 @@ abstract class AuteurApiCtl {
         headers: ApiConst.header,
         body: jsonEncode(auteur.toJson()),
       );
-      if (res.statusCode == 200) {
+      if (res.statusCode == 201) {
         var body = jsonDecode(res.body);
         return ApiData.success(data: Auteur.fromJson(body));
       } else {

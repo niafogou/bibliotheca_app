@@ -2,8 +2,6 @@
 
 import 'package:bibliotheca_app/views/acceuil.dart';
 import 'package:flutter/material.dart';
-import 'views/home_page.dart' hide HomePage;
-
 void main() {
   runApp(const BibliothecaApp());
 }

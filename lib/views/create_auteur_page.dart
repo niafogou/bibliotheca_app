@@ -40,7 +40,7 @@ class _CreateAuteurPageState extends State<CreateAuteurPage> {
               ),
               TextFormField(
                 controller: _prenomsController,
-                decoration: const InputDecoration(labelText: 'Prénoms'),
+                decoration: const InputDecoration(labelText: 'Prénom'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Veuillez entrer des prénoms';
@@ -64,7 +64,7 @@ class _CreateAuteurPageState extends State<CreateAuteurPage> {
                   if (_formKey.currentState!.validate()) {
                     var auteur = Auteur(
                       nom: _nomController.text,
-                      prenoms: _prenomsController.text,
+                      prenom: _prenomsController.text,
                       email: _emailController.text,
                     );
                     AuteurApiCtl.create(auteur).then((result) {

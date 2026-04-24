@@ -1,17 +1,18 @@
+// TODO Implement this library.
 import 'package:bibliotheca_app/api/auteur_api_ctl.dart';
 import 'package:bibliotheca_app/models/auteur.dart';
 import 'package:bibliotheca_app/views/create_auteur_page.dart';
 import 'package:bibliotheca_app/views/edit_auteur_page.dart';
 import 'package:flutter/material.dart';
 
-class ListeAuteurPage extends StatefulWidget {
-  const ListeAuteurPage({Key? key}) : super(key: key);
+class HomePageAuteur extends StatefulWidget {
+  const HomePageAuteur({Key? key}) : super(key: key);
 
   @override
-  _ListeAuteurPageState createState() => _ListeAuteurPageState();
+  _HomePageAuteurState createState() => _HomePageAuteurState();
 }
 
-class _ListeAuteurPageState extends State<ListeAuteurPage > {
+class _HomePageAuteurState extends State<HomePageAuteur> {
   late Future<List<Auteur>> _auteurs;
 
   @override
@@ -25,14 +26,8 @@ class _ListeAuteurPageState extends State<ListeAuteurPage > {
     if (result.status) {
       return result.data ?? [];
     } else {
-      throw Exception(result.message ?? 'Failed to load auteurs');
+      throw Exception('Failed to load auteurs');
     }
-  }
-
-  void _reloadAuteurs() {
-    setState(() {
-      _auteurs = _fetchAuteurs();
-    });
   }
 
   @override
@@ -42,20 +37,16 @@ class _ListeAuteurPageState extends State<ListeAuteurPage > {
         title: const Text('Liste des Auteurs'),
         actions: [
           IconButton(
-            icon: const Icon(Icons.refresh),
-            onPressed: _reloadAuteurs,
-          ),
-          IconButton(
             icon: const Icon(Icons.add),
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => const CreateAuteurPage(),
-                ),
+                MaterialPageRoute(builder: (context) => const CreateAuteurPage()),
               ).then((value) {
                 if (value == true) {
-                  _reloadAuteurs();
+                  setState(() {
+                    _auteurs = _fetchAuteurs();
+                  });
                 }
               });
             },
@@ -68,22 +59,7 @@ class _ListeAuteurPageState extends State<ListeAuteurPage > {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
-            return Center(
-              child: Padding(
-                padding: const EdgeInsets.all(24),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text('${snapshot.error}', textAlign: TextAlign.center),
-                    const SizedBox(height: 12),
-                    ElevatedButton(
-                      onPressed: _reloadAuteurs,
-                      child: const Text('Reessayer'),
-                    ),
-                  ],
-                ),
-              ),
-            );
+            return Center(child: Text('Error: ${snapshot.error}'));
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
             return const Center(child: Text('No authors found'));
           } else {
@@ -102,7 +78,9 @@ class _ListeAuteurPageState extends State<ListeAuteurPage > {
                       ),
                     ).then((value) {
                       if (value == true) {
-                        _reloadAuteurs();
+                        setState(() {
+                          _auteurs = _fetchAuteurs();
+                        });
                       }
                     });
                   },
