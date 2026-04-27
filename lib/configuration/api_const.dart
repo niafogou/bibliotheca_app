@@ -1,3 +1,4 @@
+//constantes pour les appels API
 abstract class ApiConst {
   // Création d'une nouvelle URL à partir d'un module et d'un path
   static Uri baseUrl({required String module, String path = ""}) {
